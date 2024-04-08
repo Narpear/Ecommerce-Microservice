@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, session, abort, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
-import requests
 from flask_mysqldb import MySQL
 import yaml
 
@@ -13,7 +11,7 @@ with open(r'C:\Users\prerk\OneDrive\Desktop\Prerana\PESU\Sem 6\CC\Ecommerce-Micr
     db = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
 print("Database connection established")
-
+    
 app.config['MYSQL_HOST'] = db['mysql_host']
 app.config['MYSQL_USER'] = db['mysql_user']
 app.config['MYSQL_PASSWORD'] = db['mysql_password']
