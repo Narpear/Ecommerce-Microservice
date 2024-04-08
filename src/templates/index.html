@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- Inline CSS -->
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .centered-content {
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        #get-started-link {
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="centered-content">
+        <h1 id="welcome-text">Welcome!</h1>
+        <a href="/login" id="get-started-link" class="hidden">Get Started</a>
+    </div>
+    <!-- Inline JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('get-started-link').classList.remove('hidden');
+            }, 1000); // Delay in milliseconds
+        });
+    </script>
+</body>
+</html>
