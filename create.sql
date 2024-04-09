@@ -6,3 +6,9 @@ CREATE TABLE user (
     email VARCHAR(255),
     password VARCHAR(255)
 );
+
+CREATE TABLE cart
+(
+    ID VARCHAR(255) NOT NULL PRIMARY KEY,
+    order_details VARCHAR(1000)
+);

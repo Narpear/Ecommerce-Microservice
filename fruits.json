@@ -21,6 +21,6 @@
     "Mango": {"type": "Tropical Fruits", "price": 250, "image": "https://images.unsplash.com/photo-1635716279493-d1e30afc25a0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},
     "Papaya": {"type": "Tropical Fruits", "price": 270, "image": "https://images.unsplash.com/photo-1517383733478-12faa4d8222f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},
     "Passionfruit": {"type": "Tropical Fruits", "price": 290, "image": "https://images.unsplash.com/photo-1464287047163-e0b510b491e9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},
-    "Dragonfruit": {"type": "Tropical Fruits", "price": 310, "image": "https://images.unsplash.com/photo-1612955288824-151ec2d3a4d0?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},
+    "Dragonfruit": {"type": "Tropical Fruits", "price": 310, "image": "https://images.unsplash.com/photo-1585138774489-caf6e48633b5?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},
     "Guava": {"type": "Tropical Fruits", "price": 330, "image": "https://images.unsplash.com/photo-1629367308711-b7fc438561e5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
 }

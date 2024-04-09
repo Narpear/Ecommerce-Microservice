@@ -83,8 +83,13 @@ def register():
 
 
 @app.route('/shop', methods=['GET'])
-def shop():
-    # Assuming fruits data is loaded as shown in Step 1
+def shop_render():
+    return render_template('shop.html', fruits=fruits)
+
+@app.route('/shop', methods=['POST'])
+def shop_submit():
+    quantities = request.form
+    print(quantities)
     return render_template('shop.html', fruits=fruits)
 
 @app.route('/success')

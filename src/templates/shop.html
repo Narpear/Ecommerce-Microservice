@@ -46,21 +46,22 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        {% for fruit, info in fruits.items() %}
-        <!-- Fruit Card -->
-        <div class="card">
-            <img src="{{ info.image }}" alt="{{ fruit }}">
-            <h3>{{ fruit }}</h3>
-            <p>${{ info.price }}</p>
-            <div class="card-footer">
-                <div class="quantity">
-                    <input type="number" value="1" min="1">
-                    <button>Add to Cart</button>
+    <form id="fruit-selection-form" method="POST" action="/shop">
+        <div class="container">
+            {% for fruit, info in fruits.items() %}
+            <div class="card">
+                <img src="{{ info.image }}" alt="{{ fruit }}">
+                <h3>{{ fruit }}</h3>
+                <p>${{ info.price }}</p>
+                <div class="card-footer">
+                    <div class="quantity">
+                        <input type="number" name="{{ fruit }}" value="1" min="1">
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>    
+        <button type="submit" class="submit-button">Submit</button>
+    </form> 
 </body>
 </html>
