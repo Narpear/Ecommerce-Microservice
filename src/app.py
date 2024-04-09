@@ -1,62 +1,45 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, jsonify
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_mysqldb import MySQL
-import yaml
 import json
 import time
 
 app = Flask(__name__)
 app.secret_key = 'lalala'
 
-# Configure the database
-with open(r'C:\Users\prerk\OneDrive\Desktop\Prerana\PESU\Sem 6\CC\Ecommerce-Microservice\src\db.yaml', 'r') as yamlfile:
-    db = yaml.load(yamlfile, Loader=yaml.FullLoader)
-
-print("Database connection established")
-
-
 # Load the fruits data
 with open('fruits.json', 'r') as f:
     fruits = json.load(f)
-
 print("Fruits loaded")
 
 bought_items = {}
-    
-app.config['MYSQL_HOST'] = db['mysql_host']
-app.config['MYSQL_USER'] = db['mysql_user']
-app.config['MYSQL_PASSWORD'] = db['mysql_password']
-app.config['MYSQL_DB'] = db['mysql_db']
 
-mysql = MySQL(app)
-print("Database found")
 
 @app.route('/')
 def hello_world():
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
 
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM user WHERE email = %s", (email,))
-        existing_user = cur.fetchone()
+        # Load existing users
+        try:
+            with open('users.json', 'r') as f:
+                users = json.load(f)
+        except FileNotFoundError:
+            users = {} # Initialize users as an empty dictionary if the file does not exist
 
-        if existing_user:
-            if check_password_hash(existing_user[2], password):
-                flash('Login successful.', 'success')
-                return redirect(url_for('shop_render'))
-            else:
-                flash('Incorrect password. Please try again.', 'error')
-        else:
-            flash('Email not found. Please register.', 'error')
+        # Check if user exists and password is correct
+        if email in users and users[email]['password'] == password:
+            flash('Login successful.', 'success')
+            return redirect(url_for('shop_render'))
 
-        cur.close()
+        flash('Incorrect email or password. Please try again.', 'error')
 
     return render_template('login.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -65,22 +48,27 @@ def register():
         password = request.form.get('password')
         name = request.form.get('username')
 
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM user WHERE email = %s", (email,))
-        existing_user = cur.fetchone()
+        # Load existing users
+        try:
+            with open('users.json', 'r') as f:
+                users = json.load(f)
+        except FileNotFoundError:
+            users = {} # Initialize users as an empty dictionary if the file does not exist
 
-        if existing_user:
+        # Check if user already exists
+        if email in users:
             flash('User already exists. Please log in.', 'error')
             return redirect(url_for('login'))
 
-        hashed_password = generate_password_hash(password)
-        cur.execute("INSERT INTO user (name, email, password) VALUES (%s, %s, %s)", (name, email, hashed_password))
-        mysql.connection.commit()
+        # Append new user to the dictionary
+        users[email] = {"name": name, "password": password}
+
+        # Save the updated dictionary back to the file
+        with open('users.json', 'w') as f:
+            json.dump(users, f, indent=4)
 
         flash('Registration successful. Please log in.', 'success')
         return redirect(url_for('shop_render'))
-
-        cur.close()
 
     return render_template('register.html')
 
