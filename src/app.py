@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, url_for, redirect, flash, ses
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mysqldb import MySQL
 import yaml
+import json
 
 app = Flask(__name__)
 app.secret_key = 'lalala'
@@ -11,6 +12,13 @@ with open(r'C:\Users\prerk\OneDrive\Desktop\Prerana\PESU\Sem 6\CC\Ecommerce-Micr
     db = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
 print("Database connection established")
+
+
+# Load the fruits data
+with open('fruits.json', 'r') as f:
+    fruits = json.load(f)
+
+print("Fruits loaded")
     
 app.config['MYSQL_HOST'] = db['mysql_host']
 app.config['MYSQL_USER'] = db['mysql_user']
@@ -72,6 +80,12 @@ def register():
         cur.close()
 
     return render_template('register.html')
+
+
+@app.route('/shop', methods=['GET'])
+def shop():
+    # Assuming fruits data is loaded as shown in Step 1
+    return render_template('shop.html', fruits=fruits)
 
 @app.route('/success')
 def success():

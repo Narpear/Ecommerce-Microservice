@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Shop</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            text-align: center;
+        }
+        .card img {
+            width: 270px;
+            height: 180px;
+            }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+        .quantity {
+            display: flex;
+            align-items: center;
+        }
+        .quantity input {
+            width: 30px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% for fruit, info in fruits.items() %}
+        <!-- Fruit Card -->
+        <div class="card">
+            <img src="{{ info.image }}" alt="{{ fruit }}">
+            <h3>{{ fruit }}</h3>
+            <p>${{ info.price }}</p>
+            <div class="card-footer">
+                <div class="quantity">
+                    <input type="number" value="1" min="1">
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>    
+</body>
+</html>
