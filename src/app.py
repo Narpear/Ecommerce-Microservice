@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, flash, session, abort, jsonify
+from flask import Flask, render_template, request, url_for, redirect, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mysqldb import MySQL
 import yaml
