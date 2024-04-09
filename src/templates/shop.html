@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fruit Shop</title>
+    <title>FruitBasket</title>
     <style>
         .card {
             border: 1px solid #ccc;
@@ -52,10 +52,10 @@
             <div class="card">
                 <img src="{{ info.image }}" alt="{{ fruit }}">
                 <h3>{{ fruit }}</h3>
-                <p>${{ info.price }}</p>
+                <p>Rs.{{ info.price }}.00</p>
                 <div class="card-footer">
                     <div class="quantity">
-                        <input type="number" name="{{ fruit }}" value="1" min="1">
+                        <input type="number" name="{{ fruit }}" value="0" min="0">
                     </div>
                 </div>
             </div>

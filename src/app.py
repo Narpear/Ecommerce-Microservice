@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mysqldb import MySQL
 import yaml
 import json
+import time
 
 app = Flask(__name__)
 app.secret_key = 'lalala'
@@ -19,6 +20,8 @@ with open('fruits.json', 'r') as f:
     fruits = json.load(f)
 
 print("Fruits loaded")
+
+bought_items = {}
     
 app.config['MYSQL_HOST'] = db['mysql_host']
 app.config['MYSQL_USER'] = db['mysql_user']
@@ -45,7 +48,7 @@ def login():
         if existing_user:
             if check_password_hash(existing_user[2], password):
                 flash('Login successful.', 'success')
-                return redirect(url_for('success'))
+                return redirect(url_for('shop_render'))
             else:
                 flash('Incorrect password. Please try again.', 'error')
         else:
@@ -75,7 +78,7 @@ def register():
         mysql.connection.commit()
 
         flash('Registration successful. Please log in.', 'success')
-        return redirect(url_for('success'))
+        return redirect(url_for('shop_render'))
 
         cur.close()
 
@@ -89,8 +92,26 @@ def shop_render():
 @app.route('/shop', methods=['POST'])
 def shop_submit():
     quantities = request.form
-    print(quantities)
-    return render_template('shop.html', fruits=fruits)
+    # print("quantities: ", quantities)
+    for key, value in quantities.items():
+        if value!='0':
+            bought_items[key] = int(value)
+    print(bought_items)
+    return redirect(url_for('billing'))
+
+@app.route('/billing', methods=['GET'])
+def billing():
+    items_prices_quantities = {}
+    total = 0
+    for fruit, quantity in bought_items.items():
+        price = fruits[fruit]["price"]
+        subtotal = quantity*price
+        items_prices_quantities[fruit] = {"quantity": quantity, "price": price, "subtotal": subtotal} 
+        total += subtotal
+    print(items_prices_quantities)
+    time.sleep(1)
+    return render_template('billing.html', items=items_prices_quantities, total=total)
+
 
 @app.route('/success')
 def success():
