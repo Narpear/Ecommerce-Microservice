@@ -4,7 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FruitBasket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{{ url_for('static', filename='shop_bg.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+            z-index: -1;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            color: #333; /* Dark grey text color */
+            text-align: center;
+            padding: 50px;
+            font-family: 'Playfair Display', serif; /* Playfair Display font */
+        }
+        .card {
+            background-color: white; /* Light green background */
+            border-radius: 5px; /* Rounded corners */
+            padding: 20px;
+            margin: 20px auto; /* Center the card */
+            width: 25%; /* Set a width */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Drop shadow */
+            opacity: 0.8;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px; /* Increased padding for a larger button */
+            margin: 10px;
+            color: white;
+            background-color: #17a2b8; /* Light blue background color */
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            text-decoration: none;
+            font-size: 18px;
+            font-family: 'Playfair Display', serif; /* Playfair Display font */
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+        }
+        .btn:hover {
+            background-color: #138496; /* Darker shade for hover effect */
+        }
+        .btn-info {
+            background-color: #17a2b8;
+        }
+        .btn-lg {
+            padding: 15px 30px;
+            font-size: 22px;
+        }
+        /* Existing styles from shop.html */
         .card {
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -16,7 +76,7 @@
         .card img {
             width: 270px;
             height: 180px;
-            }
+        }
         .card-footer {
             display: flex;
             justify-content: space-between;
@@ -46,22 +106,25 @@
     </style>
 </head>
 <body>
-    <form id="fruit-selection-form" method="POST" action="/shop">
-        <div class="container">
-            {% for fruit, info in fruits.items() %}
-            <div class="card">
-                <img src="{{ info.image }}" alt="{{ fruit }}">
-                <h3>{{ fruit }}</h3>
-                <p>Rs.{{ info.price }}.00</p>
-                <div class="card-footer">
-                    <div class="quantity">
-                        <input type="number" name="{{ fruit }}" value="0" min="0">
+    <div class="background-image"></div>
+    <div class="content">
+        <form id="fruit-selection-form" method="POST" action="/shop">
+            <div class="container">
+                {% for fruit, info in fruits.items() %}
+                <div class="card">
+                    <img src="{{ info.image }}" alt="{{ fruit }}">
+                    <h3>{{ fruit }}</h3>
+                    <p>Rs.{{ info.price }}.00</p>
+                    <div class="card-footer">
+                        <div class="quantity">
+                            <input type="number" name="{{ fruit }}" value="0" min="0">
+                        </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-        <button type="submit" class="submit-button">Submit</button>
-    </form> 
+            <button type="submit" class="btn btn-lg">Submit</button>
+        </form> 
+    </div>
 </body>
 </html>

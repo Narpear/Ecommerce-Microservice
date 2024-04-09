@@ -4,73 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FruitBasket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
         }
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{{ url_for('static', filename='billing_bg.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+            z-index: -1;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            color: #333; /* Dark grey text color */
+            text-align: center;
+            padding: 50px;
+            font-family: 'Playfair Display', serif; /* Playfair Display font */
+        }
+        .card {
+            background-color: white; /* Light green background */
+            border-radius: 5px; /* Rounded corners */
+            padding: 20px;
+            margin: 20px auto; /* Center the card */
+            width: 40%; /* Set a width */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Drop shadow */
+            opacity: 0.8;
+        }
+        /* Additional styles from billing.html */
         h1 {
             text-align: center;
             padding: 20px 0;
-            background-color: #333;
+            background-color: #17a2b8;
             color: #fff;
+            width: 30%;
+            margin: 0 auto;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            font-size: 28px; /* Double the default font size */
         }
         th, td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
+            font-size: 32px; /* Double the default font size */
         }
         th {
-            background-color: #4CAF50;
+            background-color: #17a2b8;
             color: white;
         }
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-        .card {
-            background-color: #fff;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
         .total {
-            color: #FF5722;
+            color: #17a2b8;
             font-weight: bold;
+            background-color: white;
+            width: 20%;
+            margin: 0 auto;
+            font-size: 32px;
         }
     </style>
 </head>
 <body>
-    <h1>Your Purchased Items</h1>
-    <div class="card">
-        <table>
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item, details in items.items() %}
-                <tr>
-                    <td>{{ item }}</td>
-                    <td>{{ details['quantity'] }}</td>
-                    <td>Rs.{{ details['price'] }}.00</td>
-                    <td>Rs.{{ details['subtotal'] }}.00</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="background-image"></div>
+    <div class="content">
+        <h1>Your Purchased Items</h1>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item, details in items.items() %}
+                    <tr>
+                        <td>{{ item }}</td>
+                        <td>{{ details['quantity'] }}</td>
+                        <td>Rs.{{ details['price'] }}.00</td>
+                        <td>Rs.{{ details['subtotal'] }}.00</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <h2 class="total">Total: Rs.{{ total }}.00</h2>
     </div>
-    <h2 class="total">Total: Rs.{{ total }}.00</h2>
 </body>
 </html>
